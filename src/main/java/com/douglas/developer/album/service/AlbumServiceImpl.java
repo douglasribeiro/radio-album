@@ -11,14 +11,15 @@ import com.douglas.developer.core.crud.CrudServiceImpl;
 import com.douglas.developer.core.model.Album;
 import com.douglas.developer.core.repository.AlbumRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class AlbumServiceImpl extends CrudServiceImpl<Album, Long> implements AlbumService {
 
-    @Autowired
-    private AlbumRepository albumRepository;
+    private final AlbumRepository albumRepository;
 
     @Override
     protected JpaRepository<Album, Long> getRepository() {
@@ -28,8 +29,7 @@ public class AlbumServiceImpl extends CrudServiceImpl<Album, Long> implements Al
     @Transactional(readOnly = true)
 	@Override
 	public List<Album> findByName(String name) {
-		List<Album> obj = albumRepository.findByNome(name);
-		return obj;
+		return albumRepository.findByNome(name);
 	}
     
 	@Transactional(readOnly = false)
