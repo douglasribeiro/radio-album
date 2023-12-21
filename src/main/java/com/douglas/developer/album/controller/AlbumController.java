@@ -17,16 +17,17 @@ import com.douglas.developer.core.crud.CrudController;
 import com.douglas.developer.core.crud.CrudService;
 import com.douglas.developer.core.model.Album;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/album")
 @Slf4j
 @CrossOrigin
+@AllArgsConstructor
 public class AlbumController extends CrudController<Album, Long> {
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
     @Override
     public CrudService<Album, Long> getService() {
@@ -40,10 +41,9 @@ public class AlbumController extends CrudController<Album, Long> {
     }
     
     @GetMapping("/name/{name}")
-    public List<Album> FindByName(@PathVariable String  name) {
+    public List<Album> findByName(@PathVariable String  name) {
     	log.info("Pesquisa por nome de Album.");
-    	List<Album> obj = albumService.findByName(name);
-    	return obj;
+    	return albumService.findByName(name);
     }
     
     @PatchMapping("{id}")
